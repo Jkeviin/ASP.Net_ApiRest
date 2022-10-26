@@ -56,8 +56,8 @@ namespace Ejemplo_Api2.Data
             {
                 try
                 {
-                    //strCadenaCnx = "Data Source=ARMAPRRQDFSD975;Initial Catalog =DB_API_DATOS; Integrated Security = True"; (LOCAL)
-                    strCadenaCnx = "workstation id=JK2448515.mssql.somee.com;packet size=4096;user id=Jkeviin_SQLLogin_1;pwd=8ho69faprm;data source=JK2448515.mssql.somee.com;persist security info=False;initial catalog=JK2448515";
+                    strCadenaCnx = "Data Source=ARMAPRRQDFSD975;Initial Catalog =Vehiculos; Integrated Security = True";
+                    //strCadenaCnx = "workstation id=JK2448515.mssql.somee.com;packet size=4096;user id=Jkeviin_SQLLogin_1;pwd=8ho69faprm;data source=JK2448515.mssql.somee.com;persist security info=False;initial catalog=JK2448515";
                     objCnnBD.ConnectionString = strCadenaCnx;
                     objCnnBD.Open();
                     blnBDAbierta = true;

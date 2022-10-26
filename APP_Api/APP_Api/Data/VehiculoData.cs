@@ -10,12 +10,12 @@ namespace APP_Api.Data
 {
     public class VehiculoData
     {
-        public static bool registrarUsuario(Vehiculo oVehiculo)
+        public static bool registrarVehiculo(Vehiculo oVehiculo)
         {
             ConexionBD objEst = new ConexionBD();
             string sentencia;
-            sentencia = $"EXECUTE usp_registrar '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.VgSoat}','{oVehiculo.VgTecno}";
-
+            sentencia = $"EXECUTE USP_REGISTRAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}','{oVehiculo.Traspaso}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.VgSoat}','{oVehiculo.VgTecno}'";
+            //sentencia = "EXECUTE usp_registrar "+"'{oVehiculo.Placa}"+"','"+ "{oVehiculo.Marca}" + "','" + "{oVehiculo.Modelo}" + "','" + "{oVehiculo.Año}" + "','" + "{oVehiculo.Cilindraje}" + "','" + "{oVehiculo.Traspaso}" + "'," + "{oVehiculo.Precio}" + "," + "{oVehiculo.Kilometraje}" + ",'" + "{oVehiculo.VgSoat}" + "','" + "{oVehiculo.VgTecno}'";
             if (!objEst.EjecutarSentencia(sentencia, false))
             {
                 objEst = null;
@@ -28,11 +28,11 @@ namespace APP_Api.Data
             }
         }
 
-        public static bool actualizarUsuario(Vehiculo oVehiculo)
+        public static bool actualizarVehiculo(Vehiculo oVehiculo)
         {
             ConexionBD objEst = new ConexionBD();
             string sentencia;
-            sentencia = $"EXECUTE USP_ACTUALIZAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.FechaIngreso}','{oVehiculo.VgSoat}','{oVehiculo.VgTecno}'";
+            sentencia = $"EXECUTE USP_ACTUALIZAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}','{oVehiculo.Traspaso}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.FechaIngreso}','{oVehiculo.VgSoat}','{oVehiculo.VgTecno}'";
             if (!objEst.EjecutarSentencia(sentencia, false))
             {
                 objEst = null;
@@ -45,7 +45,7 @@ namespace APP_Api.Data
             }
         }
 
-        public static bool eliminarUsuario(string placa)
+        public static bool eliminarVehiculo(string placa)
         {
             ConexionBD objEst = new ConexionBD();
             string sentencia;
@@ -63,7 +63,7 @@ namespace APP_Api.Data
         }
         public static List<Vehiculo> Listar()
         {
-            List<Vehiculo> oListaUsuario = new List<Vehiculo>();
+            List<Vehiculo> oListaVehiculo = new List<Vehiculo>();
             ConexionBD objEst = new ConexionBD();
             string sentencia;
             sentencia = "EXECUTE USP_LISTAR";
@@ -72,57 +72,61 @@ namespace APP_Api.Data
                 SqlDataReader dr = objEst.Reader;
                 while (dr.Read())
                 {
-                    oListaUsuario.Add(new Vehiculo()
+                    oListaVehiculo.Add(new Vehiculo()
                     {
+                        Placa = dr["Placa"].ToString(),
                         Marca = dr["Marca"].ToString(),
                         Modelo = dr["Modelo"].ToString(),
                         Año = dr["Año"].ToString(),
-                        Cilindraje = dr["Modelo"].ToString(),
+                        Cilindraje = dr["Cilindraje"].ToString(),
                         Kilometraje = float.Parse(dr["Kilometraje"].ToString()),
+                        Traspaso = dr["Traspaso"].ToString(),
                         Precio = float.Parse(dr["Precio"].ToString()),
                         FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"].ToString()),
                         VgSoat = Convert.ToDateTime(dr["VgSoat"].ToString()),
                         VgTecno = Convert.ToDateTime(dr["VgTecno"].ToString())
                     });
                 }
-                return oListaUsuario;
+                return oListaVehiculo;
             }
             else
             {
-                return oListaUsuario;
+                return oListaVehiculo;
             }
         }
 
 
         public static List<Vehiculo> Obtener(string placa)
         {
-            List<Vehiculo> oListaUsuario = new List<Vehiculo>();
+            List<Vehiculo> oListaVehiculo = new List<Vehiculo>();
             ConexionBD objEst = new ConexionBD();
             string sentencia;
-            sentencia = $"EXECUTE usp_obtener '{placa}'";
+            sentencia = $"EXECUTE USP_OBTENER '{placa}'";
             if (objEst.Consultar(sentencia, false))
             {
                 SqlDataReader dr = objEst.Reader;
                 while (dr.Read())
                 {
-                    oListaUsuario.Add(new Vehiculo()
+                    oListaVehiculo.Add(new Vehiculo()
                     {
                         Placa = dr["Placa"].ToString(),
-                        Modelo = dr["Modelo"].ToString(),
                         Marca = dr["Marca"].ToString(),
+                        Modelo = dr["Modelo"].ToString(),
                         Año = dr["Año"].ToString(),
-                        Precio = float.Parse(dr["Precio"].ToString()),
+                        Cilindraje = dr["Cilindraje"].ToString(),
                         Kilometraje = float.Parse(dr["Kilometraje"].ToString()),
+                        Traspaso = dr["Traspaso"].ToString(),
+                        Precio = float.Parse(dr["Precio"].ToString()),
                         FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"].ToString()),
                         VgSoat = Convert.ToDateTime(dr["VgSoat"].ToString()),
                         VgTecno = Convert.ToDateTime(dr["VgTecno"].ToString())
                     });
                 }
-                return oListaUsuario;
+                return oListaVehiculo;
             }
             else
             {
-                return oListaUsuario;
+                return oListaVehiculo;
             }
         }
 

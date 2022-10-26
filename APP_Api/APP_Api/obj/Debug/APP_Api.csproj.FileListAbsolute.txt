@@ -139,7 +139,6 @@ C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\bin\Microsoft.CodeDom.Providers.Do
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\bin\es\System.Net.Http.Formatting.resources.dll
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\bin\es\System.Web.Http.resources.dll
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\bin\es\System.Web.Http.WebHost.resources.dll
-C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\obj\Debug\APP_Api.csproj.AssemblyReference.cache
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\obj\Debug\APP_Api.csproj.CoreCompileInputs.cache
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\obj\Debug\APP_Api.csproj.CopyComplete
 C:\Users\SENA\Desktop\ASP.net\APP_Api\APP_Api\obj\Debug\APP_Api.dll

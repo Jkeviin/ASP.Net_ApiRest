@@ -24,17 +24,17 @@ namespace APP_Api.Controllers
         // POST api/<controller>
         public bool Post([FromBody] Vehiculo oVehiculo)
         {
-            return VehiculoData.registrarUsuario(oVehiculo);
+            return VehiculoData.registrarVehiculo(oVehiculo);
         }
         // PUT api/<controller>/5
         public bool Put([FromBody] Vehiculo oVehiculo)
         {
-            return VehiculoData.actualizarUsuario(oVehiculo);
+            return VehiculoData.actualizarVehiculo(oVehiculo);
         }
         // DELETE api/<controller>/5
         public bool Delete(string placa)
         {
-            return VehiculoData.eliminarUsuario(placa);
+            return VehiculoData.eliminarVehiculo(placa);
         }
     }
 }
