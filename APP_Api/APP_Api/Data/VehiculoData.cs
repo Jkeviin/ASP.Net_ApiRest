@@ -14,7 +14,9 @@ namespace APP_Api.Data
         {
             ConexionBD objEst = new ConexionBD();
             string sentencia;
-            sentencia = $"EXECUTE USP_REGISTRAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}','{oVehiculo.Traspaso}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.VgSoat}','{oVehiculo.VgTecno}'";
+            string vgSoat = oVehiculo.VgSoat.ToString("yyyy-MM-dd");
+            string VgTecno = oVehiculo.VgTecno.ToString("yyyy-MM-dd");
+            sentencia = $"EXECUTE USP_REGISTRAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}','{oVehiculo.Traspaso}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{prueba}','{prueba2}'";
             //sentencia = "EXECUTE usp_registrar "+"'{oVehiculo.Placa}"+"','"+ "{oVehiculo.Marca}" + "','" + "{oVehiculo.Modelo}" + "','" + "{oVehiculo.Año}" + "','" + "{oVehiculo.Cilindraje}" + "','" + "{oVehiculo.Traspaso}" + "'," + "{oVehiculo.Precio}" + "," + "{oVehiculo.Kilometraje}" + ",'" + "{oVehiculo.VgSoat}" + "','" + "{oVehiculo.VgTecno}'";
             if (!objEst.EjecutarSentencia(sentencia, false))
             {
@@ -33,6 +35,7 @@ namespace APP_Api.Data
             ConexionBD objEst = new ConexionBD();
             string sentencia;
             sentencia = $"EXECUTE USP_ACTUALIZAR '{oVehiculo.Placa}','{oVehiculo.Marca}','{oVehiculo.Modelo}','{oVehiculo.Año}','{oVehiculo.Cilindraje}','{oVehiculo.Traspaso}',{oVehiculo.Precio},{oVehiculo.Kilometraje},'{oVehiculo.FechaIngreso}','{oVehiculo.VgSoat}','{oVehiculo.VgTecno}'";
+            
             if (!objEst.EjecutarSentencia(sentencia, false))
             {
                 objEst = null;

@@ -11,7 +11,7 @@ namespace API_REST
 {
 
 
-    public partial class Index
+    public partial class Registro
     {
     }
 }

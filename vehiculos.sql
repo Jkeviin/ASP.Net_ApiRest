@@ -1,3 +1,10 @@
+
+use master
+go
+
+drop database Vehiculos
+go
+
 create database Vehiculos
 go
 
@@ -20,7 +27,7 @@ create table Vehiculo (
 go
 
 insert into Vehiculo 
-	(placa, marca, modelo, año, cilindraje,traspaso, precio, kilometraje, vgSoat, vgTecno)
+	(placa, marca, modelo, año, cilindraje, traspaso, precio, kilometraje, vgSoat, vgTecno)
 	VALUES
 		('COI725', 'Chevrolet', 'Spark Life' , '2006', '1000','true', 15500000, 153000, '2023-06-23','2023-05-15');
 go
@@ -46,6 +53,12 @@ BEGIN
 	END
 GO
 
+EXECUTE USP_REGISTRAR 'COI425','Chevrolet','Spark Life','2006','1000','True',1.55E+07,153000.0,'2023-06-23T00:00:00','2023-05-15T00:00:00'
+
+
+select* from Vehiculo
+
+
 CREATE PROCEDURE USP_ACTUALIZAR
 	@placa varchar(10),
 	@marca varchar(50),
@@ -61,12 +74,11 @@ CREATE PROCEDURE USP_ACTUALIZAR
 AS
 BEGIN
 	UPDATE Vehiculo SET
-		placa=@placa,
 		marca=@marca,
 		modelo=@modelo,
 		año=@año,
 		cilindraje=@cilindraje,
-		traspaso=@traspaso, 
+		traspaso = @traspaso,
 		precio=@precio,
 		kilometraje=@kilometraje,
 		fechaIngreso=@fechaIngreso,
