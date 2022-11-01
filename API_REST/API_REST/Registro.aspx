@@ -12,7 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.0.0.js" crossorigin="anonymous"></script>
         <!-- jQuery and JS bundle w/ Popper.js -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-
+        integrity="sha384-IrFormularioCrear 
         ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     </head>
@@ -21,28 +21,52 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <form>
-                        <input type="hidden" id="txtidusuario" />
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Documento Identidad</label>
-                            <input type="text" class="form-control" id="txtdocumento" placeholder="">
+                            <label sfor="exampleInputEmail1">Placa</label>
+                            <input type="text" class="form-control" id="txtplaca" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nombres</label>
-                            <input type="text" class="form-control" id="txtnombres" placeholder="">
+                            <label sfor="exampleInputEmail1">Marca</label>
+                            <input type="text" class="form-control" id="txtmarca" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Telefono</label>
-                            <input type="text" class="form-control" id="txttelefono" placeholder="">
+                            <label for="exampleInputEmail1">Modelo</label>
+                            <input type="text" class="form-control" id="txtmodelo" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Correo</label>
-                            <input type="text" class="form-control" id="txtcorreo" placeholder="">
+                            <label for="exampleInputEmail1">Año</label>
+                            <input type="text" class="form-control" id="txtaño" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Ciudad</label>
-                            <input type="text" class="form-control" id="txtciudad" placeholder="">
+                            <label for="exampleInputEmail1">cilindraje</label>
+                            <input type="text" class="form-control" id="txtcilindraje" placeholder="">
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="GuardarUsuario()">Guardar</button>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Traspaso</label>
+                            <input type="radio" class="" id="txttraspaso" name="traspaso" value="TRUE" checked> SI
+                            <input type="radio" class="" id="txttraspaso2" name="traspaso" value="FALSE"> NO
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Precio</label>
+                            <input type="number" class="form-control" id="txtprecio" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Kilometraje</label>
+                            <input type="number" class="form-control" id="txtkilometraje" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Fecha Ingreso</label>
+                            <input type="date" class="form-control" id="txtfechaingreo" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">VgSoat</label>
+                            <input type="date" class="form-control" id="txtvgsoat" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">VgTecno</label>
+                            <input type="date" class="form-control" id="txtvgtecno" placeholder="">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="GuardarVehiculo()">Guardar</button>
                         <button type="button" class="btn btn-warning" onclick="IrFormularioInicio()">Volver</button>
                     </form>
                 </div>
@@ -54,25 +78,31 @@
             let editar = false;
 
             window.onload = function () {
-                let id = $.urlParam('id');
-                console.log(id);
-                if (id != null) {
+                let placa = $.urlParam('placa');
+                console.log(placa);
+                if (placa != null) {
                     editar = true;
-                    $("#txtidusuario").val(id);
-                    PintarUsuario(id);
+                    $("#txtplaca").val(placa);
+                    PintarVehiculo(placa);
                 }
              };
 
             // Por id
-            function PintarUsuario(idUsuario) {
-                $.get("http://localhost:58683/api/Usuario/" + idUsuario)
+            function PintarVehiculo(Placa) {
+                let traspasoVal = document.querySelector('input[name="traspaso"]:checked')
+                $.get("https://localhost:44384/api/Vehiculo/" + Placa)
                     .done(function (response) {
-                        console.log(response);
-                        $("#txtdocumento").val(response.DocumentoIdentidad),
-                            $("#txtnombres").val(response.Nombres),
-                            $("#txttelefono").val(response.Telefono),
-                            $("#txtcorreo").val(response.Correo),
-                            $("#txtciudad").val(response.Ciudad)
+                            $("#txtplaca").val(response.Placa),
+                            $("#txtmarca").val(response.Marca),
+                            $("#txtmodelo").val(response.Modelo),
+                            $("#txtaño").val(response.Año),
+                            $("#txtcilindraje").val(response.Cilindraje),
+                            traspasoVal.value = response.Traspaso,
+                            $("#txtprecio").val(response.Precio),
+                            $("#txtkilometraje").val(response.Kilometraje),
+                            $("#txtfechaingreso").val(response.FechaIngreso),
+                            $("#txtvgsoat").val(response.VgSoat),
+                            $("#txtvgtecno").val(response.VgTecno)
                     });
             }
 
@@ -84,21 +114,26 @@
                 return decodeURI(results[1]) || 0;
             }
 
-            // Guardar Usuario
-            function GuardarUsuario() {
+            // Guardar Vehiculo
+            function GuardarVehiculo() {
+                let traspasoVal = document.querySelector('input[name="traspaso"]:checked');
                 if (editar) {
                     var data = {
-
-                        IdUsuario: $("#txtidusuario").val(),
-                        DocumentoIdentidad: $("#txtdocumento").val(),
-                        Nombres: $("#txtnombres").val(),
-                        Telefono: $("#txttelefono").val(),
-                        Correo: $("#txtcorreo").val(),
-                        Ciudad: $("#txtciudad").val()
+                        Placa: $("#txtplaca").val(),
+                        Marca: $("#txtmarca").val(),
+                        Modelo: $("#txtmodelo").val(),
+                        Año: $("#txtaño").val(),
+                        Cilindraje: $("#txtcilindraje").val(),
+                        Traspaso: traspasoVal.value,
+                        Precio: $("#txtprecio").val(),
+                        Kilometraje: $("#txtkilometraje").val(),
+                        FechaIngreso: $("#txtfechaingreso").val(),
+                        VgSoat: $("#txtvgsoat").val(),
+                        VgTecno: $("#txtvgtecno").val()
                     }
                     $.ajax({
                         method: "PUT",
-                        url: "http://localhost:58683/api/Usuario",
+                        url: "https://localhost:44384/api/Vehiculo",
                         contentType: 'application/json',
                         data: JSON.stringify(data), // access in body
                     })
@@ -113,17 +148,23 @@
                         });
                 } else {
                     var data = {
-                        DocumentoIdentidad: $("#txtdocumento").val(),
-                        Nombres: $("#txtnombres").val(),
-                        Telefono: $("#txttelefono").val(),
-                        Correo: $("#txtcorreo").val(),
-                        Ciudad: $("#txtciudad").val()
+                        Placa: $("#txtplaca").val(),
+                        Marca: $("#txtmarca").val(),
+                        Modelo: $("#txtmodelo").val(),
+                        Año: $("#txtaño").val(),
+                        Cilindraje: $("#txtcilindraje").val(),
+                        Traspaso: traspasoVal.value,
+                        Precio: $("#txtprecio").val(),
+                        Kilometraje: $("#txtkilometraje").val(),
+                        FechaIngreso: $("#txtfechaingreso").val(),
+                        VgSoat: $("#txtvgsoat").val(),
+                        VgTecno: $("#txtvgtecno").val()
                     }
-                    $.post("http://localhost:58683/api/Usuario", data)
+                    $.post("https://localhost:44384/api/Vehiculo", data)
                         .done(function (response) {
                             console.log(response);
                             if (response) {
-                                alert("Usuario Creado");
+                                alert("Vehiculo Creado");
                                 window.location = "Index.aspx";
                             } else {
                                 alert("Error al crear");

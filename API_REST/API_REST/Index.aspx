@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row mb-3 mt-3">
                 <div class="col-4">
-                    <button type="button" class="btn btn-primary" onclick="IrFormularioCrear()">Crear Nuevo</button>
+                    <button type="button" class="btn btn-primary" id="IrFormulario"">Crear Nuevo</button>
                 </div>
             </div>
             <div class="row">
@@ -21,12 +21,17 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Documento Identidad</th>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Ciudad</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Cilindraje</th>
+                            <th scope="col">Traspaso</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Kilometraje</th>
+                            <th scope="col">FechaIngreso</th>
+                            <th scope="col">VgSoat</th>
+                            <th scope="col">VgTecno</th>
                             <th></th>
                             </tr>
                         </thead>
@@ -38,6 +43,8 @@
         </div>
         <script>
 
+            document.getElementById("IrFormulario").addEventListener("click", IrFormularioCrear);
+
             //Onload
             window.onload = function () {
                 listar();
@@ -46,20 +53,25 @@
             //Listar
             function listar() {
                 $(".table tbody").html("");
-                $.get("http://localhost:58683/api/Usuario")
+                $.get("https://localhost:44384/api/Vehiculo")
                     .done(function (response) {
                         console.log(response);
                         $.each(response, function (id, fila) {
                             $("<tr>").append(
-                                $("<td>").text(fila.IdUsuario),
-                                $("<td>").text(fila.DocumentoIdentidad),
-                                $("<td>").text(fila.Nombres),
-                                $("<td>").text(fila.Telefono),
-                                $("<td>").text(fila.Correo),
-                                $("<td>").text(fila.Ciudad),
+                                $("<td>").text(fila.Placa),
+                                $("<td>").text(fila.Marca),
+                                $("<td>").text(fila.Modelo),
+                                $("<td>").text(fila.Año),
+                                $("<td>").text(fila.Cilindraje),
+                                $("<td>").text(fila.Traspaso),
+                                $("<td>").text(fila.Precio),
+                                $("<td>").text(fila.Kilometraje),
+                                $("<td>").text(fila.FechaIngreso),
+                                $("<td>").text(fila.VgSoat),
+                                $("<td>").text(fila.VgTecno),
                                 $("<td>").append(
-                                    $("<button>").data("id", fila.IdUsuario).addClass("btn btn-success btn-sm mr-1 editar").text("Editar ").attr({ "type": "button" }),
-                                    $("<button>").data("id", fila.IdUsuario).addClass("btn btn-danger btn-sm eliminar").text("Eliminar").attr({ "type": "button" })
+                                    $("<button>").data("placa", fila.Placa).addClass("btn btn-success btn-sm mr-1 editar").text("Editar ").attr({ "type": "button" }),
+                                    $("<button>").data("placa", fila.Placa).addClass("btn btn-danger btn-sm eliminar").text("Eliminar").attr({ "type": "button" })
                                 )
                             ).appendTo(".table");
                         });
@@ -69,17 +81,17 @@
             // Evento Editar
             $(document).on('click', '.editar', function () {
 
-                console.log($(this).data("id"));
-                window.location = "Registro.aspx?id=" + $(this).data("id");
+                console.log($(this).data("placa"));
+                window.location = "Registro.aspx?id=" + $(this).data("placa");
 
             });
 
             // Evento Eliminar
             $(document).on('click', '.eliminar', function () {
-                console.log($(this).data("id"));
+                console.log($(this).data("placa"));
                 $.ajax({
                     method: "DELETE",
-                    url: "http://localhost:58683/api/Usuario/" + $(this).data("id")
+                    url: "https://localhost:44384/api/Vehiculo/" + $(this).data("placa")
                 })
                     .done(function (response) {
                         console.log(response);
