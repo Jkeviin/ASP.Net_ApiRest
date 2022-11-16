@@ -92,17 +92,17 @@
                 let traspasoVal = document.querySelector('input[name="traspaso"]:checked')
                 $.get("https://localhost:44384/api/Vehiculo/" + Placa)
                     .done(function (response) {
-                            $("#txtplaca").val(response.Placa),
-                            $("#txtmarca").val(response.Marca),
-                            $("#txtmodelo").val(response.Modelo),
-                            $("#txtaño").val(response.Año),
-                            $("#txtcilindraje").val(response.Cilindraje),
-                            traspasoVal.value = response.Traspaso,
-                            $("#txtprecio").val(response.Precio),
-                            $("#txtkilometraje").val(response.Kilometraje),
-                            $("#txtfechaingreso").val(response.FechaIngreso),
-                            $("#txtvgsoat").val(response.VgSoat),
-                            $("#txtvgtecno").val(response.VgTecno)
+                            $("#txtplaca").val(response[0].Placa),
+                            $("#txtmarca").val(response[0].Marca),
+                            $("#txtmodelo").val(response[0].Modelo),
+                            $("#txtaño").val(response[0].Año),
+                            $("#txtcilindraje").val(response[0].Cilindraje),
+                            traspasoVal.value = response[0].Traspaso,
+                            $("#txtprecio").val(response[0].Precio),
+                            $("#txtkilometraje").val(response[0].Kilometraje),
+                            $("#txtfechaingreso").val(response[0].FechaIngreso),
+                            $("#txtvgsoat").val(response[0].VgSoat),
+                            $("#txtvgtecno").val(response[0].VgTecno)
                     });
             }
 
